@@ -1,0 +1,6 @@
+node_modules/
+db.sqlite3
+*.key
+migrations/
+media/
+package-lock.json

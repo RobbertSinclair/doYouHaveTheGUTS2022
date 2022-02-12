@@ -2,7 +2,7 @@
 body {
     overflow: hidden;
     margin: 0;
-    background-color: green;
+    background-color: #DA7A7A;
 }
 
 canvas {
@@ -28,9 +28,9 @@ canvas {
 }
 
 
-.main-container {
+#main-container {
     color: brown;
-    background-color: green;
+    background-color:#E2DDAA;
     font-size: 100px;
 }
 

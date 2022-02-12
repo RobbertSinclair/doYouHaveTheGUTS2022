@@ -23,21 +23,21 @@ def team(request):
 
 @login_required
 def create_event(request):
-    form = EventForm()
-
+    event_form = EventForm()
+    
     if request.method == 'POST':
-        form = EventForm(request.POST,request.FILES)
+        event_form = EventForm(request.POST)
         u = request.user
         user = UserProfile.objects.get(user_id=u.id)
 
-        if form.is_valid():
-            event = form.save(commit=False)
+        if event_form.is_valid():
+            event = event_form.save(commit=False)
             return redirect(reverse('ratemyrecipeapp:index'))
 
         else:
-            print(form.errors)
+            print(event_form.errors)
     
     context_dict = {} 
-    context_dict['form']=form
+    context_dict['event_form'] = event_form
 
     return render(request, "create_event.html", context=context_dict)

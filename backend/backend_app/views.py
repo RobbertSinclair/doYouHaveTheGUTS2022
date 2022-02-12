@@ -10,6 +10,7 @@ from backend_app.forms import *
 import requests
 from django.conf import settings
 import json
+import datetime
 
 def index(request):
     return render(request, "index.html")
@@ -42,7 +43,7 @@ def event(request):
     # To test create a Valentines model in admin page
     next_event = "Valentines"
     current_user = request.user
-    print(current_user)
+
     try:
         cur_event = Event.objects.get(name=next_event)
         context_dict['event'] = cur_event
@@ -57,7 +58,27 @@ def event(request):
         except:
             context_dict['options'] = None
 
-    print(context_dict["options"])
+    cur_time = datetime.datetime.now()
+
+    if (cur_time.year < cur_event.revealedDate.year):
+        context_dict["revealed"] = False
+    else:
+        if (cur_time.month < cur_event.revealedDate.month):
+            context_dict["revealed"] = False
+        else:
+            if (cur_time.day < cur_event.revealedDate.day):
+                context_dict["revealed"] = False
+            else:
+                if (cur_time.hour < cur_event.revealed_time.hour):
+                    context_dict["revelead"] = False
+                else:
+                    if (cur_time.minute < cur_event.revealed_time.minute):
+                        context_dict["revelead"] = False
+                    else:
+                        if (cur_time.second < cur_event.revealed_time.second):
+                            context_dict["revelead"] = False
+                        else:
+                            context_dict["revealed"] = True
 
     return render(request, "event.html", context=context_dict)
 

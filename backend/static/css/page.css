@@ -59,6 +59,21 @@ canvas {
     margin:15px;
 }
 
+.btn{
+    padding: 20px;
+    background-color:#AFE1AF;
+    margin:auto;
+}
+
+#user-icon{
+    padding:10px;
+    padding-left:50px;
+}
+
+#user-hi{
+    padding:20px;
+}
+
 .fas{
     width:200%;
     height:auto;

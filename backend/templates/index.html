@@ -1,4 +1,6 @@
-<!DOCTYPE html>
+{% extends 'base.html' %}
+
+<!---<!DOCTYPE html>
 {% load static %}
 <html>
     <head>
@@ -8,11 +10,16 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="{% static 'css/page.css' %}">
-    </head>
-    <body>
+    </head> -->
+
+
+{% block title_block %}
+Event
+{% endblock %}
+
+{% block body_block %}
         <div id="title-div">
             <h1 id="title">When you forget to order the salad</h1>
         </div>
         <script src="{% static 'js/bundle.js' %}"></script>
-    </body>
-</html>
+{% endblock %}

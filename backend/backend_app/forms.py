@@ -4,7 +4,7 @@ from backend_app.models import Event, UserProfile
 
 class EventForm(forms.ModelForm):
     name = forms.CharField(
-        max_length=Event.NAME_MAX_LENGTH,
+        max_length=30,
         help_text='Please enter the event name.'
     )
 

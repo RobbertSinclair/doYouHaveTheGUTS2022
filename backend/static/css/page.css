@@ -9,6 +9,14 @@ canvas {
     margin-bottom: 0;
 }
 
+.card-body{
+    padding:40px;
+    font-size: 20px;
+}
+
+#form-div{
+    background-color:#AFE1AF;
+}
 
 
 #title-div {

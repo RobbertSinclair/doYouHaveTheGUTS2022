@@ -30,11 +30,28 @@
 		</div>
         </a>
 		
-		<ul class="navbar-nav ml-auto">
-            <i class="fas fa-user fa-3x"></i>
+		<ul class="navbar-nav navbar-right ml-auto">
+            {% if user.is_authenticated %}
+			Hi, {{ user.username }}!
+			{% else %}
+                <a href="{% url 'backend_app:login' %}">
+                <button type="button" class="btn btn-primary mr-1  btn-lg active" aria-pressed="true" aria-label="Right Align" >Login
+                    <span class="glyphicon glyphicon-align-left" aria-hidden="true"></span>
+                </button>
+                </a>
+                <a href="{% url 'backend_app:signUp' %}">
+                <button type="button" class="btn btn-dark mr-1  btn-lg active" aria-label="Right Align">SignUp
+                    <span class="glyphicon glyphicon-align-left" aria-hidden="true"></span>
+                </button>
+                </a>
+            {% endif %}
+
+            <a href="{% url 'backend_app:account' %}">
+            <i id="user-icon" class="fas fa-user fa-3x"></i>
+            </a>
+
 			{% block nav_block_right %}
 			{% endblock %}
-		</ul>
 		
 	  </nav>
 

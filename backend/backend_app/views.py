@@ -10,8 +10,30 @@ from django.shortcuts import redirect
 def index(request):
     return render(request, "index.html")
 
+
+def generate_event_test():
+    from datetime import datetime
+
+    event_name = "Valentine's Lunch"
+    event = Event.objects.get_or_create(name=event_name)[0]
+    event.date = datetime.strptime('2-14-22', '%m-%d-%y')
+    event.time = datetime.strptime("12:30", "%H:%M")
+    event.budget = 10.00
+    event.details = "Lunch dates, cheeky."
+    event.save()
+
 def event(request):
-    return render(request, "event.html")
+    #generate_event_test()
+    context_dict = {}
+    next_event = "Valentines"
+    try:
+        cur_event = Event.objects.get(name=next_event)
+        context_dict['event'] = cur_event
+    except Event.DoesNotExist:
+        context_dict['event'] = None
+
+    return render(request, "event.html", context=context_dict)
+
 
 def profile(request):
     return render(request, "profile.html")

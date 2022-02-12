@@ -6,6 +6,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.urls import reverse
 from django.shortcuts import redirect
 from django.http import HttpResponse
+from backend_app.forms import *
 
 # Create your views here.
 def index(request):
@@ -80,8 +81,6 @@ def my_account(request):
 
 @login_required
 def create_event(request):
-    event_form = EventForm()
-    
     if request.method == 'POST':
         event_form = EventForm(request.POST)
         u = request.user
@@ -89,12 +88,12 @@ def create_event(request):
 
         if event_form.is_valid():
             event = event_form.save(commit=False)
-            return redirect(reverse('ratemyrecipeapp:index'))
+            return redirect(reverse('backend_app:index'))
 
         else:
             print(event_form.errors)
+    else:
+        # If not a HTTP POST then render a blank form.
+        event_form = EventForm()
     
-    context_dict = {} 
-    context_dict['event_form'] = event_form
-
-    return render(request, "create_event.html", context=context_dict)
+    return render(request, 'create_event.html', {'event_form': event_form})

@@ -27,6 +27,11 @@ KEY_URL = os.path.join(BASE_DIR, "backend/secret.key")
 with open(KEY_URL, "r") as f:
     SECRET_KEY = f.read()
 
+GOOGLE_KEY_URL = os.path.join(BASE_DIR, "backend/google.key")
+with open(GOOGLE_KEY_URL, "r") as f:
+    GOOGLE_KEY = f.read()
+
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 

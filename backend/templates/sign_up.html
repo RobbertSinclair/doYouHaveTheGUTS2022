@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title_block %}
+Sign Up
+{% endblock %}
+{% block content %}
+
+{% endblock %}
+
+
+{% block body_block %}
+<div class="card text-white bg-secondary my-5 py-4 text-center">
+			<div class="card-body">
+<h1 class="font-weight-light">Sign Up</h1>
+			{% if registered %}
+			<strong>Thank you for registering!</strong>
+			<a href="{% url 'backend_app:index' %}">Return to the homepage.</a><br />
+			{% else %}
+			<p>Welcome to LunchBox! Create your account here.</p>
+			<form id="user_form" method="post" action="{%url 'backend_app:signUp' %}" enctyoe="multipart/-form-data">
+				{% csrf_token %}
+				{{ user_form.as_p }}
+				{{profile_form.as_p }}
+	
+				<input type="submit" name="submit" value="Sign Up" />
+			</form>
+			{% endif %}
+			<p>Already have an account?</p>
+			<a class="btn-primary" href="{% url 'backend_app:login' %}">Login</a>
+</div>
+</div>
+		
+{% endblock %}

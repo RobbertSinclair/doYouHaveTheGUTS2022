@@ -2,6 +2,8 @@ from django import forms
 from django.contrib.auth.models import User
 from backend_app.models import *
 
+from django import forms
+
 class CuisineForm(forms.ModelForm):
     name = forms.CharField(max_length=MAX_STRING_LENGTH)
 
@@ -35,6 +37,12 @@ class DietTag(forms.ModelForm):
         model = DietTag
         fields = ('name',)
 
+class DateInput(forms.DateInput):
+    input_type = 'date'
+
+class TimeInput(forms.TimeInput):
+    input_type = 'time'
+
 class EventForm(forms.ModelForm):
     name = forms.CharField(max_length=MAX_STRING_LENGTH, help_text='Please enter the category name.')
     date = forms.DateField()
@@ -45,6 +53,7 @@ class EventForm(forms.ModelForm):
     class Meta:
         model = Event
         fields = ('name', 'date', 'time', 'budget', 'details',)
+        widgets = { 'date': DateInput(), 'time': TimeInput()}
 
 class UserForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput())

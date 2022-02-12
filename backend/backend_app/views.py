@@ -184,7 +184,7 @@ def user_logout(request):
 def my_account(request):
     context_dict = {}
     u=request.user
-    user=UserProfile.objects.get(user=u.id)
+    user=UserProfile.objects.get(user=u)
     context_dict["u"] = user
     return render(request, 'my_account.html', context=context_dict)
 

@@ -26,12 +26,25 @@ def generate_event_test():
 def event(request):
     #generate_event_test()
     context_dict = {}
+    # To test create a Valentines model in admin page
     next_event = "Valentines"
+    current_user = request.user
+    print(current_user)
     try:
         cur_event = Event.objects.get(name=next_event)
         context_dict['event'] = cur_event
     except Event.DoesNotExist:
         context_dict['event'] = None
+
+    if context_dict['event'] != None:
+        try:
+            options = EventUserBridge.objects.get(user=current_user)
+            print(options)
+            context_dict['options'] = options
+        except:
+            context_dict['options'] = None
+
+    print(context_dict["options"])
 
     return render(request, "event.html", context=context_dict)
 

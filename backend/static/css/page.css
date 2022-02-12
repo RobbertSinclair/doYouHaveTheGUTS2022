@@ -1,4 +1,3 @@
-
 body {
     margin: 0;
     background-color: #DA7A7A;
@@ -53,8 +52,6 @@ canvas {
     font-size: 30px;
 }
 
-
-
 #small-event-block{
     background-color:#AFE1AF;
     padding:50px;
@@ -69,5 +66,7 @@ canvas {
 }
 
 
-
+#event-form {
+    font-size: 20px;
+}
 

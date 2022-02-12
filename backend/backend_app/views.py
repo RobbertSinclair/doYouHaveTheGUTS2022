@@ -6,6 +6,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.urls import reverse
 from django.shortcuts import redirect
 from django.http import HttpResponse
+from backend_app.forms import *
 import requests
 from django.conf import settings
 import json
@@ -37,12 +38,25 @@ def generate_event_test():
 def event(request):
     #generate_event_test()
     context_dict = {}
+    # To test create a Valentines model in admin page
     next_event = "Valentines"
+    current_user = request.user
+    print(current_user)
     try:
         cur_event = Event.objects.get(name=next_event)
         context_dict['event'] = cur_event
     except Event.DoesNotExist:
         context_dict['event'] = None
+
+    if context_dict['event'] != None:
+        try:
+            options = EventUserBridge.objects.get(user=current_user)
+            print(options)
+            context_dict['options'] = options
+        except:
+            context_dict['options'] = None
+
+    print(context_dict["options"])
 
     return render(request, "event.html", context=context_dict)
 
@@ -157,21 +171,19 @@ def my_account(request):
 
 @login_required
 def create_event(request):
-    form = EventForm()
-
     if request.method == 'POST':
-        form = EventForm(request.POST,request.FILES)
+        event_form = EventForm(request.POST)
         u = request.user
         user = UserProfile.objects.get(user_id=u.id)
 
-        if form.is_valid():
-            event = form.save(commit=False)
+        if event_form.is_valid():
+            event = event_form.save(commit=False)
             return redirect(reverse('backend_app:index'))
 
         else:
-            print(form.errors)
+            print(event_form.errors)
+    else:
+        # If not a HTTP POST then render a blank form.
+        event_form = EventForm()
     
-    context_dict = {} 
-    context_dict['form']=form
-
-    return render(request, "create_event.html", context=context_dict)
+    return render(request, 'create_event.html', {'event_form': event_form})

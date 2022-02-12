@@ -8,5 +8,6 @@ admin.site.register(UserProfile)
 admin.site.register(MenuItem)
 admin.site.register(DietTag)
 admin.site.register(Event)
+admin.site.register(EventUserBridge)
 
 

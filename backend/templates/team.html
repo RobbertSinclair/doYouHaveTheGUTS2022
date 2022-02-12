@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block title_block %}
+Team
+{% endblock %}
+
+{% block body_block %}
+    <!-- Show the small event block -->
+    <div class="small-event-block">
+        <h1>Jimmys Birthday</h1>
+    </div>
+
+    <!-- Show the previous events -->
+    <div class="previous-events">
+        <h1>Previous Events</h1>
+    </div>
+    <!-- Show the members in the page -->
+    <div class="row row-cols-1 row-cols-sm-2 g-2">
+        {% for m in members %}
+        <div class="col">
+            <div class="card shadow-sm">
+                <div class="text_img">
+                    <!--<a href="{% url 'backend_app:team' m.slug %}"> 
+
+                        <img src="/media/{{ c.picture }}" width="100%" height="350" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#55595c" />
+                        <div class="overlay">
+                            <div class="centered_text"><text x="50%" y="50%" fill="#ffffff" dy=".3em">{{ c.name }}</text></div>
+                        </div>
+                    </a> -->
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <h3><center>Sorry, there are no members in this team yet.</center></h3>
+        {% endfor %}
+
+    </div>
+{% endblock %}

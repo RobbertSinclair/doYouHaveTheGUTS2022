@@ -15,7 +15,7 @@ class Restaurant(models.Model):
     name = models.CharField(max_length=MAX_STRING_LENGTH)
     location = models.CharField(max_length=200)
     image = models.ImageField(upload_to='restaurant_images', blank=True)
-    cuisine = models.ForeignKey(Cuisine)
+    cuisine = models.ForeignKey(Cuisine, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name
@@ -31,6 +31,7 @@ class MenuItem(models.Model):
 
 class DietTag(models.Model):
     name = models.CharField(max_length=MAX_STRING_LENGTH)
+    is_likes = models.BooleanField()
 
     def __str__(self):
         return self.name
@@ -50,9 +51,8 @@ class UserProfile(models.Model):
 
     address = models.CharField(max_length=200)
     dietary_info = models.CharField(max_length=500)
-    likes = models.ForeignKey(DietTag)
-    dislikes = models.ForeignKey(DietTag)
-    event = models.ForeignKey(Event)
+    likes_and_dislikes = models.ManyToManyField(DietTag)
+    event = models.ForeignKey(Event, on_delete=models.CASCADE)
     profile_picture = models.ImageField(upload_to='profile_images', blank=True)
 
     def __str__(self):

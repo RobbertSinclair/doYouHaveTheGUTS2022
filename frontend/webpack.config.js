@@ -17,7 +17,7 @@ module.exports = {
                 use: "babel-loader"
             },
             {
-                test: /\.(jpe?g|png|gif|svg)$/i,
+                test: /\.(jpe?g|png|gif|svg|key)$/i,
                 loader: 'file-loader',
                 options: {
                     name: '/public/icons/[name].[ext]'

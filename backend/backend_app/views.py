@@ -13,9 +13,6 @@ def index(request):
 def event(request):
     return render(request, "event.html")
 
-def profile(request):
-    return render(request, "profile.html")
-
 def team(request):
     context_dict = {}
 
@@ -24,6 +21,21 @@ def team(request):
    # members = UserProfile.objects.filter(event=event)
 
     return render(request, "team.html", context=context_dict)
+
+
+
+def sign_up(request):
+    pass
+
+def user_login(request):
+    pass
+
+def user_logout(request):
+    pass
+
+def my_account(request):
+    return render(request, 'my_account.html')
+
 
 
 @login_required

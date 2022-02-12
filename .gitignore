@@ -5,3 +5,4 @@ migrations/
 media/
 package-lock.json
 __pycache__/
+google_key.js

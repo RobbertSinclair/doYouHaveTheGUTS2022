@@ -11,7 +11,8 @@ def profile(request):
     return render(request, "profile.html")
 
 def team(request):
-    return render(request, "team.html")
+    context_dict = {}
+    return render(request, "team.html", context=context_dict)
 
 def create_event(request):
     return render(request, "create.html")

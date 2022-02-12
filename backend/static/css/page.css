@@ -23,6 +23,16 @@ canvas {
     text-align: center;
 }
 
+#logo {
+    width:190px;
+    height:auto;
+}
+
+#main-nav{
+    background-color: white;
+    margin-bottom:25px;
+}
+
 #title {
     color: white;
 }

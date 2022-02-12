@@ -19,6 +19,7 @@ class Restaurant(models.Model):
 
     def __str__(self):
         return self.name
+    
 
 class MenuItem(models.Model):
     item = models.CharField(max_length=MAX_STRING_LENGTH)
@@ -57,9 +58,16 @@ class UserProfile(models.Model):
     event = models.ForeignKey(Event, on_delete=models.CASCADE)
     profile_picture = models.ImageField(upload_to='profile_images', blank=True)
     team = models.CharField(max_length=50, default="NOTEAM")
+    google_search_address = models.CharField(max_length=400, blank=True, null=True)
 
     def __str__(self):
         return self.user.username
+    
+    def save(self, *args, **kwargs):
+        the_address = self.address
+        the_address = the_address.replace(" ", "+")
+        self.google_search_address = the_address
+        super(UserProfile, self).save(self, *args, **kwargs)
 
 
 class EventUserBridge(models.Model):

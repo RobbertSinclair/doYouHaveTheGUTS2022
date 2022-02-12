@@ -16,13 +16,15 @@ def index(request):
     return render(request, "index.html")
 
 # Create your views here.
-def restaurants(request):
-    data = requests.get(f"https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=55.871914%2C-4.297744&radius=2500&type=restaurant&type=takeaway_menu&keyword=pizza&key={settings.GOOGLE_KEY}")
-    print(data.json())
-    context_dict = {"results": data.json()["results"][:3], "photos": []}
-    for result in context_dict["results"]:
-        context_dict["photos"].append(f"https://maps.googleapis.com/maps/api/place/photo?maxWidth=400&photo_reference={result['photos'][0]['photo_reference']}&key={settings.GOOGLE_KEY}")
-    print(context_dict["photos"])
+def restaurants(request, keyword):
+    data = requests.get(f"https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=55.871914%2C-4.297744&radius=2500&type=restaurant&type=takeaway_menu&keyword={keyword}&key={settings.GOOGLE_KEY}")
+    context_dict = {"results": []}
+    for result in data.json()["results"][:3]:
+        new_dict = {"result": result}
+        print(result)
+        print(result['photos'][0]['photo_reference'])
+        new_dict["photo"] = f"https://maps.googleapis.com/maps/api/place/photo?maxwidth=200&maxheight=200&photo_reference={result['photos'][0]['photo_reference']}&key={settings.GOOGLE_KEY}"
+        context_dict["results"].append(new_dict)
     return render(request, "restaurants.html", context=context_dict)
 
 

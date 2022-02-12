@@ -8,7 +8,7 @@ urlpatterns = [
     path("event/", event, name="event"),
     path("team/", team, name="team"),
     path("create-event/", create_event, name="create-event"),
-    path("restaurants/", restaurants, name="restaurants"),
+    path("restaurants/<str:keyword>", restaurants, name="restaurants"),
 
     path('signUp/', sign_up, name="signUp"),
     path('login/', user_login, name="login"),

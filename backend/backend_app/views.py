@@ -13,5 +13,5 @@ def profile(request):
 def team(request):
     return render(request, "team.html")
 
-def create(request):
+def create_event(request):
     return render(request, "create.html")

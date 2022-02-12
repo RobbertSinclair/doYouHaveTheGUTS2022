@@ -9,6 +9,8 @@ canvas {
     margin-bottom: 0;
 }
 
+
+
 #title-div {
     display: block;
     width: 100%;
@@ -38,10 +40,23 @@ canvas {
 
 
 #main-container {
-    color: brown;
     background-color:#E2DDAA;
     font-size: 100px;
     margin:20px;
+    padding:10px;
+}
+
+#no-members-msg{
+    font-size: 30px;
+}
+
+
+
+#small-event-block{
+    background-color:#AFE1AF;
+    padding:40px;
+    text-align: center;
+    margin:15px;
 }
 
 

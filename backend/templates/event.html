@@ -12,8 +12,9 @@ Event
 <div>
     <h1>Event</h1>
     <div id="event-wrapper">
-        {{ event }}
-        <div id="event-title"> {{ event.title }}</div>
+        <div id="event-title">
+            <p>{{ event.name }}</p>
+        </div>
 
         <div id="event-details">
             <h3>Details</h3>
@@ -25,7 +26,7 @@ Event
 
         <div id="opt-in">
             <h5>Are you participating?</h5>
-            {% if user.opt %}
+            {% if options.opt_in %}
                 <input type="radio" id="in" name="participation" value="Opt In" checked>
                 <label for="in">Opt In</label>
                 <input type="radio" id="out" name="participation" value="Opt Out">
@@ -40,16 +41,16 @@ Event
 
         <div id="opt-theme">
             <h5>Would you like food from the theme?</h5>
-            {% if user.themed %}
-                <input type="radio" id="in" name="participation-theme" value="Opt In" checked>
-                <label for="in">Opt In</label>
-                <input type="radio" id="out" name="participation-theme" value="Opt Out">
-                <label for="out">Opt Out</label>
+            {% if options.theme_opt_in %}
+                <input type="radio" id="in-theme" name="participation-theme" value="Opt In" checked>
+                <label for="in-theme">Opt In</label>
+                <input type="radio" id="out-theme" name="participation-theme" value="Opt Out">
+                <label for="out-theme">Opt Out</label>
             {% else %}
-                <input type="radio" id="in" name="participation-theme" value="Opt In">
-                <label for="in">Opt In</label>
-                <input type="radio" id="out" name="participation-theme" value="Opt Out" checked>
-                <label for="out">Opt Out</label>
+                <input type="radio" id="in-theme" name="participation-theme" value="Opt In">
+                <label for="in-theme">Opt In</label>
+                <input type="radio" id="out-theme" name="participation-theme" value="Opt Out" checked>
+                <label for="out-theme">Opt Out</label>
             {% endif %}
         </div>
 

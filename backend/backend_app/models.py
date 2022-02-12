@@ -54,6 +54,17 @@ class UserProfile(models.Model):
     likes_and_dislikes = models.ManyToManyField(DietTag)
     event = models.ForeignKey(Event, on_delete=models.CASCADE)
     profile_picture = models.ImageField(upload_to='profile_images', blank=True)
+    team = models.CharField(max_length=50, default="NOTEAM")
+
+    def __str__(self):
+        return self.user.username
+
+
+class EventUserBridge(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='user', null=True)
+    event = models.ForeignKey(Event, on_delete=models.CASCADE, default=None)
+    opt_in = models.BooleanField()
+    theme_opt_in = models.BooleanField()
 
     def __str__(self):
         return self.user.username

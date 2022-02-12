@@ -7,9 +7,13 @@ from django.urls import reverse
 from django.shortcuts import redirect
 from django.http import HttpResponse
 from backend_app.forms import *
+import requests
+import json
 
 # Create your views here.
 def index(request):
+    data = requests.get(f"https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=55.871914%2C-4.297744&radius=2500&type=restaurant&keyword=cruise&key={settings.GOOGLE_KEY}")
+    print(data.json())
     return render(request, "index.html")
 
 
@@ -27,12 +31,25 @@ def generate_event_test():
 def event(request):
     #generate_event_test()
     context_dict = {}
+    # To test create a Valentines model in admin page
     next_event = "Valentines"
+    current_user = request.user
+    print(current_user)
     try:
         cur_event = Event.objects.get(name=next_event)
         context_dict['event'] = cur_event
     except Event.DoesNotExist:
         context_dict['event'] = None
+
+    if context_dict['event'] != None:
+        try:
+            options = EventUserBridge.objects.get(user=current_user)
+            print(options)
+            context_dict['options'] = options
+        except:
+            context_dict['options'] = None
+
+    print(context_dict["options"])
 
     return render(request, "event.html", context=context_dict)
 

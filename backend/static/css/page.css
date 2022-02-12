@@ -30,5 +30,7 @@ canvas {
 
 .main-container {
     color: brown;
+    background-color: green;
+    font-size: 100px;
 }
 

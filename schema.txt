@@ -4,6 +4,8 @@ Restaurant
 - name
 - location
 - image
+- phone number
+- website link
 
 Cuisine
 - name

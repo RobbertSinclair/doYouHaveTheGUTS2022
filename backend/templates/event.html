@@ -13,7 +13,8 @@ Event
     <h1>Event</h1>
     <div id="event-wrapper">
         <div id="event-title">
-            <p>{{ event.name }}</p>
+            <p>{{ revealed }}</p>
+            <p>{{ event.revealed_time }}</p>
         </div>
 
         <div id="event-details">
@@ -61,6 +62,11 @@ Event
 
         <div id="buying-for">
             <h4>You are buying for</h4>
+            {% if revealed == True %}
+                <p>You will find out at: {{ event.revealed_time }} on {{ event.revealed_date }}</p>
+            {% else %}
+                <p>SUUUUUUUU</p>
+            {% endif %}
         </div>
     </div>
 </div>

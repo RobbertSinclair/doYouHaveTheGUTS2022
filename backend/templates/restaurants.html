@@ -9,6 +9,13 @@ Event
 {% endblock %}
 
 {% block body_block %}
+        <div id="photos" class="row">
+            {% for photo in photos %} 
+                <div class="col">
+                    <img src="{{photo}}" />
+                </div>
+            {% endfor %}
+        </div>
         <div id="restaurants" class="row">
             {% for result in results %} 
             <div class="col">

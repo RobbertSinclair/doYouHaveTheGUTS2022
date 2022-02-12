@@ -1,10 +1,11 @@
 from django import forms
 from django.contrib.auth.models import User
+from backend_app.models import *
 #from backend_app.models import
 
 class EventForm(forms.ModelForm):
     name = forms.CharField(
-        max_length=Category.NAME_MAX_LENGTH,
+        max_length=30,
         help_text='Please enter the category name.'
     )
     slug = forms.CharField(widget=forms.HiddenInput(), required=False)
@@ -14,5 +15,5 @@ class EventForm(forms.ModelForm):
     )
 
     class Meta:
-        model = Category
+        model = Cuisine
         fields = ('name', 'picture', )

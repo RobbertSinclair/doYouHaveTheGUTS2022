@@ -5,8 +5,8 @@ from backend_app.models import *
 
 admin.site.register(Restaurant)
 admin.site.register(UserProfile)
-admin.site.register(Menu)
+admin.site.register(MenuItem)
 admin.site.register(DietTag)
-admin.site.register(Team)
+admin.site.register(Event)
 
 

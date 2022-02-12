@@ -1,6 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-from backend_app.models import Category, Recipe, Rating, UserProfile
+from backend_app.models import *
 from backend_app.forms import EventForm
 
 # Create your views here.
@@ -29,7 +29,7 @@ def create_event(request):
         if form.is_valid():
             recipe = form.save(commit=False)
             recipe.added_by=user
-            recipe.category = Category.objects.get(slug=category_name_slug)
+            recipe.category = Cuisine.objects.get(slug=category_name_slug)
             recipe.save()
             return redirect(reverse('ratemyrecipeapp:index'))
 

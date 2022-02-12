@@ -70,6 +70,10 @@ canvas {
     padding-left:50px;
 }
 
+#user-hi{
+    padding:20px;
+}
+
 .fas{
     width:200%;
     height:auto;

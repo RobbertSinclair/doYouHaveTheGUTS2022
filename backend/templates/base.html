@@ -32,7 +32,14 @@
 		
 		<ul class="navbar-nav navbar-right ml-auto">
             {% if user.is_authenticated %}
+            <div id="user-hi">
 			Hi, {{ user.username }}!
+            </div>
+            <a href="{% url 'backend_app:logout' %}">
+                <button type="button" class="btn btn-primary mr-1  btn-lg active" aria-pressed="true" aria-label="Right Align" >Logout
+                    <span class="glyphicon glyphicon-align-left" aria-hidden="true"></span>
+                </button>
+                </a>
 			{% else %}
                 <a href="{% url 'backend_app:login' %}">
                 <button type="button" class="btn btn-primary mr-1  btn-lg active" aria-pressed="true" aria-label="Right Align" >Login

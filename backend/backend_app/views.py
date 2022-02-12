@@ -6,17 +6,23 @@ from django.contrib.auth import authenticate, login, logout
 from django.urls import reverse
 from django.shortcuts import redirect
 from django.http import HttpResponse
-from django.utils import timezone
+from backend_app.forms import *
 import requests
+from django.conf import settings
 import json
-
 import datetime
 
-# Create your views here.
 def index(request):
-    data = requests.get(f"https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=55.871914%2C-4.297744&radius=2500&type=restaurant&keyword=cruise&key={settings.GOOGLE_KEY}")
-    print(data.json())
     return render(request, "index.html")
+
+# Create your views here.
+def restaurants(request):
+    data = requests.get(f"https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=55.871914%2C-4.297744&radius=2500&type=restaurant&type=takeaway_menu&keyword=pizza&key={settings.GOOGLE_KEY}")
+    print(data.json())
+    context_dict = {"results": data.json()["results"][:3], "photos": []}
+    for result in context_dict["results"]:
+        photo = requests.get(f"")
+    return render(request, "restaurants.html", context=context_dict)
 
 
 def generate_event_test():
@@ -186,21 +192,19 @@ def my_account(request):
 
 @login_required
 def create_event(request):
-    form = EventForm()
-
     if request.method == 'POST':
-        form = EventForm(request.POST,request.FILES)
+        event_form = EventForm(request.POST)
         u = request.user
         user = UserProfile.objects.get(user_id=u.id)
 
-        if form.is_valid():
-            event = form.save(commit=False)
+        if event_form.is_valid():
+            event = event_form.save(commit=False)
             return redirect(reverse('backend_app:index'))
 
         else:
-            print(form.errors)
+            print(event_form.errors)
+    else:
+        # If not a HTTP POST then render a blank form.
+        event_form = EventForm()
     
-    context_dict = {} 
-    context_dict['form']=form
-
-    return render(request, "create_event.html", context=context_dict)
+    return render(request, 'create_event.html', {'event_form': event_form})

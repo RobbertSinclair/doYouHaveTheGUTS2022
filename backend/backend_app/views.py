@@ -20,7 +20,8 @@ def restaurants(request):
     print(data.json())
     context_dict = {"results": data.json()["results"][:3], "photos": []}
     for result in context_dict["results"]:
-        photo = requests.get(f"")
+        context_dict["photos"].append(f"https://maps.googleapis.com/maps/api/place/photo?maxWidth=400&photo_reference={result['photos'][0]['photo_reference']}&key={settings.GOOGLE_KEY}")
+    print(context_dict["photos"])
     return render(request, "restaurants.html", context=context_dict)
 
 

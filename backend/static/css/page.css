@@ -43,8 +43,10 @@ canvas {
 #main-container {
     background-color:#E2DDAA;
     font-size: 100px;
-    margin:20px;
-    padding:10px;
+	margin:auto;
+	padding:70px;
+	margin-right:60px;
+	margin-left:60px;
 }
 
 #no-members-msg{
@@ -55,7 +57,7 @@ canvas {
 
 #small-event-block{
     background-color:#AFE1AF;
-    padding:40px;
+    padding:50px;
     text-align: center;
     margin:15px;
 }

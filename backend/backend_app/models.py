@@ -15,7 +15,7 @@ class Restaurant(models.Model):
     name = models.CharField(max_length=MAX_STRING_LENGTH)
     location = models.CharField(max_length=200)
     image = models.ImageField(upload_to='restaurant_images', blank=True)
-    cuisine = models.ForeignKey(Cuisine)
+    cuisine = models.ForeignKey(Cuisine, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name

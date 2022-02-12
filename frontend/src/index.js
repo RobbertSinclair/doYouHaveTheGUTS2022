@@ -1,6 +1,14 @@
 import * as THREE from "three";
 import { WebGLRenderer } from "three";
 import dogTexture from '../salad_dog.png';
+import googleApiKey from '../google.key';
+
+
+fetch(googleApiKey)
+.then(res => res.json())
+.then(res => {
+    console.log(res);
+})
 
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);

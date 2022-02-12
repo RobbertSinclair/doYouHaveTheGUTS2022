@@ -1,0 +1,32 @@
+Our awesome Database Scehma
+
+Restaurant
+- name
+- location
+- image
+
+Cuisine
+- name
+
+Menu
+- restaurant FOREIGN KEY to restaurant
+- item
+- image (Optional)
+- price
+
+Team
+- team_id
+
+Diet_tag
+- name
+
+User
+- username
+- password
+- profile_pic
+- Address
+- Likes
+- budget
+- Dislikes
+- Allergies/Dietry
+- team FOREIGN KEY TO team

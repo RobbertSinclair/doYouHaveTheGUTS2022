@@ -2,6 +2,7 @@
 body {
     overflow: hidden;
     margin: 0;
+    background-color: green;
 }
 
 canvas {
@@ -24,5 +25,10 @@ canvas {
 
 #title {
     color: white;
+}
+
+
+.main-container {
+    color: brown;
 }
 

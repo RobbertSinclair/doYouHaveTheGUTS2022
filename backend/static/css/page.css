@@ -62,8 +62,10 @@ canvas {
     margin:15px;
 }
 
-p {
-    font-size: 15px;
+.fas{
+    width:200%;
+    height:auto;
+    color:#AFE1AF;
 }
 
 

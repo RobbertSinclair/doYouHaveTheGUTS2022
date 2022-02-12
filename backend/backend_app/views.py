@@ -17,10 +17,11 @@ def event(request):
 def team(request):
     context_dict = {}
 
-    #event = Event.objects.get(slug=event_name_slug)
-    # Gets all the members associated with that team
-   # members = UserProfile.objects.filter(event=event)
+    event = Event.objects.get(name="Jimmy's Birthday")
+    members = UserProfile.objects.filter(event=event)
 
+    context_dict["event"] = event
+    context_dict["members"] = members
     return render(request, "team.html", context=context_dict)
 
 

@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block title_block %}
+Create Event
+{% endblock %}
+
+{% block body_block %}
+ <!-- Heading Row -->
+        <!-- Call to Action Well -->
+        <div class="card text-white bg-secondary my-5 py-4 text-center">
+            <div class="card-body">
+                <!--Relies on user model-->
+                <p class="text-white m-0">
+                    Hi {{ user.username }}! </p>
+                    Create a new {{ category.name }} recipe here.
+                </p>
+                <p>
+                    <a class="btn btn-primary" href="{% url 'ratemyrecipeapp:account' %}">Go to my account</a>
+                </p>
+              
+
+        <form id="RecipeForm" role="form" method='POST'enctype="multipart/form-data">
+            {% csrf_token %}
+            {% for field in form %}
+            <div class="form-group">
+                {{field.help_text}}
+                {{field}}
+                {{field.errors}}
+            </div>
+            {% endfor %}
+                <div class="form-group">
+                    <div class="col-sm-10">
+                        <input type="submit" class="btn btn-primary" name="submit" value="Submit" />
+                    </div>
+                </div>
+        </form>
+      	</div>
+      </div>
+{% endblock %}

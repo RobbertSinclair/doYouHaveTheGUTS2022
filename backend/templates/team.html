@@ -5,8 +5,8 @@ Team
 {% endblock %}
 
 {% block body_block %}
+    <h1><center>Your Team</center></h1>
     <!-- Show the small event block -->
-
     <div class="row">
         <div class="col">
 
@@ -21,25 +21,12 @@ Team
         </div>
 
         <!-- Show the members in the page -->
-        <div class="col" id="small-event-block">
-            {% for m in members %}
-            <div class="col">
-                <div class="card shadow-sm">
-                    <div class="text_img">
-                        <!--<a href="{% url 'backend_app:team' m.slug %}"> 
-
-                            <img src="/media/{{ c.picture }}" width="100%" height="350" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#55595c" />
-                            <div class="overlay">
-                                <div class="centered_text"><text x="50%" y="50%" fill="#ffffff" dy=".3em">{{ c.name }}</text></div>
-                            </div>
-                        </a> -->
-                    </div>
-                </div>
+        {% for m in members %}
+            <div class="col" id="small-event-block">
+                {{m.user}}
             </div>
-            {% empty %}
+        {% empty %}
             <strong id="no-members-msg">Sorry, there are no members in this team yet.</strong>
-            {% endfor %}
-
-        </div>
+        {% endfor %}
     </div>
 {% endblock %}

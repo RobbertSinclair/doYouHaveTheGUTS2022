@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from backend_app.models import *
-from backend_app.forms import EventForm
+from backend_app.forms import *
 from django.contrib.auth import authenticate, login, logout
 from django.urls import reverse
 from django.shortcuts import redirect
@@ -12,22 +12,88 @@ from backend_app.forms import *
 def index(request):
     return render(request, "index.html")
 
+
+def generate_event_test():
+    from datetime import datetime
+
+    event_name = "Valentine's Lunch"
+    event = Event.objects.get_or_create(name=event_name)[0]
+    event.date = datetime.strptime('2-14-22', '%m-%d-%y')
+    event.time = datetime.strptime("12:30", "%H:%M")
+    event.budget = 10.00
+    event.details = "Lunch dates, cheeky."
+    event.save()
+
 def event(request):
-    return render(request, "event.html")
+    #generate_event_test()
+    context_dict = {}
+    next_event = "Valentines"
+    try:
+        cur_event = Event.objects.get(name=next_event)
+        context_dict['event'] = cur_event
+    except Event.DoesNotExist:
+        context_dict['event'] = None
+
+    return render(request, "event.html", context=context_dict)
+
 
 def team(request):
     context_dict = {}
 
-    #event = Event.objects.get(slug=event_name_slug)
-    # Gets all the members associated with that team
-   # members = UserProfile.objects.filter(event=event)
+    event = Event.objects.get(name="Jimmy's Birthday")
+    members = UserProfile.objects.filter(event=event)
 
+    context_dict["event"] = event
+    context_dict["members"] = members
     return render(request, "team.html", context=context_dict)
 
 
 
 def sign_up(request):
-    pass
+    # Is registration successful?
+    registered = False
+
+    if request.method == 'POST':
+        # Attempt to grab info from raw form information
+        user_form = UserForm(request.POST)
+        profile_form = UserProfileForm(request.POST)
+
+        # If the two forms are valid...
+        if user_form.is_valid() and profile_form.is_valid():
+            # Save user's form data to database
+            user = user_form.save()
+
+            # Set then update password
+            user.set_password(user.password)
+            user.save()
+
+            # Set commit=False to delay saving model
+            # until ready to avoid integrity problems
+            profile = profile_form.save(commit=False)
+            profile.user = user
+
+            # Saves UserProfile instance
+            profile.save()
+
+            # Update variable to indicate to template registration was successful
+            registered = True
+        else:
+            # Invalid form(s)
+            # Prints problems to terminal
+            print(user_form.errors, profile_form.errors)
+    else:
+        # Not an HTTP POST so form rendered using two ModelForm instances
+        # These forms will be blank, ready for user input
+        user_form = UserForm()
+        profile_form = UserProfileForm()
+
+    # Render template depending on context
+    return render(request,
+                  'sign_up.html',
+                  context={'user_form': user_form,
+                           'profile_form': profile_form,
+                           'registered': registered})
+
 
 def user_login(request):
     # If request is HTTP POST, try to pull relevant info

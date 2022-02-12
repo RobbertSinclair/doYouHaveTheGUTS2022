@@ -11,9 +11,8 @@ Create Event
             <!--Relies on user model-->
             <p class="text-white m-0">
                 Create Event
-            </p>
-              
-        </br>
+            </p>     
+
         <form class="text-center" id="event-form" role="form" method='POST'enctype="multipart/form-data">
             {% csrf_token %}
             {{ event_form.as_p }}

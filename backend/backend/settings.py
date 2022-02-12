@@ -23,7 +23,8 @@ TEMPLATE_DIR = os.path.join(BASE_DIR, "templates")
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-with open("./secret.key", "r") as f:
+KEY_URL = os.path.join(BASE_DIR, "backend/secret.key")
+with open(KEY_URL, "r") as f:
     SECRET_KEY = f.read()
 
 # SECURITY WARNING: don't run with debug turned on in production!

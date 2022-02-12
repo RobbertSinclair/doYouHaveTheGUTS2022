@@ -1,0 +1,28 @@
+
+body {
+    overflow: hidden;
+    margin: 0;
+}
+
+canvas {
+    margin-top: 0;
+    margin-left: 0;
+    margin-bottom: 0;
+}
+
+#title-div {
+    display: block;
+    width: 100%;
+    font-size: 45px;
+    position: absolute;
+    
+    margin-left: auto;
+    margin-right: auto;
+    font-family: "Comic Sans MS";
+    text-align: center;
+}
+
+#title {
+    color: white;
+}
+

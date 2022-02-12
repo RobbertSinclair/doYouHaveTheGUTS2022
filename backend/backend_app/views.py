@@ -9,6 +9,8 @@ from django.http import HttpResponse
 
 # Create your views here.
 def index(request):
+    data = requests.get(f"https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=55.871914%2C-4.297744&radius=2500&type=restaurant&keyword=cruise&key={settings.GOOGLE_KEY}")
+    print(data.json())
     return render(request, "index.html")
 
 

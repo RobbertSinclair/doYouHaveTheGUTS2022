@@ -7,13 +7,20 @@ from django.urls import reverse
 from django.shortcuts import redirect
 from django.http import HttpResponse
 import requests
+from django.conf import settings
 import json
 
-# Create your views here.
 def index(request):
-    data = requests.get(f"https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=55.871914%2C-4.297744&radius=2500&type=restaurant&keyword=cruise&key={settings.GOOGLE_KEY}")
-    print(data.json())
     return render(request, "index.html")
+
+# Create your views here.
+def restaurants(request):
+    data = requests.get(f"https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=55.871914%2C-4.297744&radius=2500&type=restaurant&type=takeaway_menu&keyword=pizza&key={settings.GOOGLE_KEY}")
+    print(data.json())
+    context_dict = {"results": data.json()["results"][:3], "photos": []}
+    for result in context_dict["results"]:
+        photo = requests.get(f"")
+    return render(request, "restaurants.html", context=context_dict)
 
 
 def generate_event_test():

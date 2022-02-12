@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+
+{% load static %}
+
+
+{% block title_block %}
+Event
+{% endblock %}
+
+{% block body_block %}
+        <div id="restaurants" class="row">
+            {% for result in results %} 
+            <div class="col">
+                <h1>{{result.name}}</h1>
+            </div>    
+            
+            {% endfor %}
+        </div>
+{% endblock %}

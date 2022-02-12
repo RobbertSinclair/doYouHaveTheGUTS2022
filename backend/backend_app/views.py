@@ -6,6 +6,8 @@ from django.contrib.auth import authenticate, login, logout
 from django.urls import reverse
 from django.shortcuts import redirect
 from django.http import HttpResponse
+import requests
+import json
 
 # Create your views here.
 def index(request):

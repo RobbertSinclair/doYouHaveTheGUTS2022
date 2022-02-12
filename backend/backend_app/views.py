@@ -62,13 +62,13 @@ def event(request):
 
     cur_time = datetime.datetime.now()
 
-    if (cur_time.year < cur_event.revealedDate.year):
+    if (cur_time.year < cur_event.revealed_date.year):
         context_dict["revealed"] = False
     else:
-        if (cur_time.month < cur_event.revealedDate.month):
+        if (cur_time.month < cur_event.revealed_date.month):
             context_dict["revealed"] = False
         else:
-            if (cur_time.day < cur_event.revealedDate.day):
+            if (cur_time.day < cur_event.revealed_date.day):
                 context_dict["revealed"] = False
             else:
                 if (cur_time.hour < cur_event.revealed_time.hour):

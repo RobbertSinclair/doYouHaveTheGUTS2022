@@ -18,13 +18,13 @@ My Account
 			</p>
             <img class="img-fluid rounded mb-4 mb-lg-0" src="/media/{{ u.profile_picture }}" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c" /><text x="50%" y="50%" fill="#eceeef" dy=".3em">
             <p>
-                <h2>{{ u.address }}</h2>
+                <h2>Address: {{ u.address }}</h2>
             </p>
             <p>
-                <h2>{{ u.dietary_info }}</h2>
+                <h2>Dietery Info: {{ u.dietary_info }}</h2>
             </p>
             <p>
-                <h2>{{ u.likes_and_dislikes }}</h2>
+                <h2>Likes and Dislikes: {{ u.likes_and_dislikes.name }}</h2>
             </p>
 				
         {% else %}

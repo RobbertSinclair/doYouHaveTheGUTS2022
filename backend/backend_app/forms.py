@@ -14,7 +14,7 @@ class CuisineForm(forms.ModelForm):
 class RestaurantForm(forms.ModelForm):
     name = forms.CharField(max_length=MAX_STRING_LENGTH)
     location = forms.CharField(max_length=200)
-    image = forms.ImageField(help_text='Insert a Restaurant image here.')
+    image = forms.ImageField()
 
     class Meta:
         model = Restaurant
@@ -23,7 +23,7 @@ class RestaurantForm(forms.ModelForm):
 class MenuItemForm(forms.ModelForm):
     item = forms.CharField(max_length=MAX_STRING_LENGTH)
     price = forms.DecimalField(max_digits=6, decimal_places=2)
-    image = forms.ImageField(help_text='Insert a Menu Item image here.')
+    image = forms.ImageField()
 
     class Meta:
         model = MenuItem
@@ -44,16 +44,15 @@ class TimeInput(forms.TimeInput):
     input_type = 'time'
 
 class EventForm(forms.ModelForm):
-    name = forms.CharField(max_length=MAX_STRING_LENGTH, help_text='Please enter the category name.')
-    date = forms.DateField()
-    time = forms.TimeField()
-    budget = forms.DecimalField(max_digits=6, decimal_places=2)
-    details = forms.CharField(max_length=200)
+    name = forms.CharField(max_length=MAX_STRING_LENGTH, widget=forms.TextInput(attrs={"class": "form-control"}))
+    date = forms.DateField(widget=DateInput(attrs={"class": "form-control"}))
+    time = forms.TimeField(widget=TimeInput(attrs={"class": "form-control"}))
+    budget = forms.DecimalField(max_digits=6, decimal_places=2, widget=forms.NumberInput(attrs={"class": "form-control"}))
+    details = forms.CharField(max_length=200, widget=forms.Textarea(attrs={"class": "form-control", "rows": 5, "cols": 20,}))
 
     class Meta:
         model = Event
         fields = ('name', 'date', 'time', 'budget', 'details',)
-        widgets = { 'date': DateInput(), 'time': TimeInput()}
 
 class UserForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput())

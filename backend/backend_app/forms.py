@@ -47,12 +47,13 @@ class EventForm(forms.ModelForm):
     name = forms.CharField(max_length=MAX_STRING_LENGTH, widget=forms.TextInput(attrs={"class": "form-control"}))
     date = forms.DateField(widget=DateInput(attrs={"class": "form-control"}))
     time = forms.TimeField(widget=TimeInput(attrs={"class": "form-control"}))
+    theme = forms.CharField(max_length=100, widget=forms.TextInput(attrs={"class": "form-control"}))
     budget = forms.DecimalField(max_digits=6, decimal_places=2, widget=forms.NumberInput(attrs={"class": "form-control"}))
     details = forms.CharField(max_length=200, widget=forms.Textarea(attrs={"class": "form-control", "rows": 5, "cols": 20,}))
 
     class Meta:
         model = Event
-        fields = ('name', 'date', 'time', 'budget', 'details',)
+        fields = ('name', 'date', 'time', 'theme', 'budget', 'details',)
 
 class UserForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput())

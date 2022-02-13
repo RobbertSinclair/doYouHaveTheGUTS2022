@@ -1,6 +1,7 @@
 from django.db import models
 from django.template.defaultfilters import slugify
 from django.contrib.auth.models import User
+import random
 
 MAX_STRING_LENGTH = 128
 
@@ -40,6 +41,7 @@ class Event(models.Model):
     name = models.CharField(max_length=MAX_STRING_LENGTH)
     date = models.DateField()
     time = models.TimeField()
+    theme = models.CharField(max_length=100, null=True, default=None)
     revealed_date = models.DateField(default=None)
     revealed_time = models.TimeField(default=None)
     budget = models.DecimalField(max_digits=6, decimal_places=2)
@@ -58,6 +60,8 @@ class UserProfile(models.Model):
     profile_picture = models.ImageField(upload_to='profile_images', blank=True)
     team = models.CharField(max_length=50, default="NOTEAM")
     google_search_address = models.CharField(max_length=400, blank=True, null=True)
+    partner_found = models.BooleanField(blank=True, null=True, default=False)
+    buying_for = models.ForeignKey("self", related_name="partner", on_delete=models.CASCADE, blank=True, null=True)
 
     def __str__(self):
         return self.user.username
@@ -66,7 +70,10 @@ class UserProfile(models.Model):
         the_address = self.address
         the_address = the_address.replace(" ", "+")
         self.google_search_address = the_address
+
         super(UserProfile, self).save(self, *args, **kwargs)
+
+
 
 
 class EventUserBridge(models.Model):

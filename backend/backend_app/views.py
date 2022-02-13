@@ -11,6 +11,7 @@ import requests
 from django.conf import settings
 import json
 import datetime
+import random
 
 def index(request):
     return render(request, "index.html")

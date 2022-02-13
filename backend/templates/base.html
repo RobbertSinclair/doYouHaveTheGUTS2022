@@ -23,6 +23,7 @@
   <body>
     <div id="mySidenav" class="sidenav">
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <a href="{% url 'backend_app:index' %}">Home</a>
         <a href="{% url 'backend_app:event' %}">Event</a>
         <a href="{% url 'backend_app:team' %}">My Team</a>
         <a href="{% url 'backend_app:account' %}">My Account</a>

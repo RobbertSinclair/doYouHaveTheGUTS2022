@@ -11,6 +11,7 @@ import requests
 from django.conf import settings
 import json
 import datetime
+import random
 
 def index(request):
     return render(request, "index.html")
@@ -145,11 +146,16 @@ def create_event(request):
 def team(request):
     context_dict = {}
 
-    event = Event.objects.get(name="Valentines")
-    members = UserProfile.objects.filter(event=event)
+    name="Valentines"
+    try:
+        event = Event.objects.get(name="Valentines")
+        members = UserProfile.objects.filter(event=event)
+        context_dict["event"] = event
+        context_dict["members"] = members
+    except Event.DoesNotExist:
+        context_dict['event'] = None
+        context_dict["members"] = None
 
-    context_dict["event"] = event
-    context_dict["members"] = members
     return render(request, "team.html", context=context_dict)
 
 

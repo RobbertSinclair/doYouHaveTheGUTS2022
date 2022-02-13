@@ -9,8 +9,16 @@ Index
 {% endblock %}
 
 {% block body_block %}
-        <div id="title-div">
-            <h1 id="title">When you forget to order the salad</h1>
-        </div>
-        <script src="{% static 'js/bundle.js' %}"></script>
+<div class="event-block" >
+<Strong>Current Events:</Strong>
+</div>
+<div class="event-block">
+    {% if user.is_authenticated %}
+    <a href="{% url 'backend_app:event' %}">
+    <Strong>Valentines</Strong>
+    </a>
+    {% else %}
+    <h1>Please <a href="{% url 'backend_app:login' %}">Login</a> a to view current events</h1>
+    {% endif %}
+</div>
 {% endblock %}

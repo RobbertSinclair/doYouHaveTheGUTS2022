@@ -10,6 +10,7 @@ Event
 
 {% block body_block %}
         <div id="data" style="display: none">
+            
             <span id="user">{{profile.id}}</span>
             {% for tag in profile.likes_and_dislikes.all %} 
                 <span class="likes">{{tag.name}}</span>

@@ -22,12 +22,14 @@ def restaurants(request):
     #the_user = User.objects.get(id=user_id)
     #Get the users address
     profile = UserProfile.objects.get(user=request.user)
-    context_dict = {"profile": profile}
+
+    context_dict = {"profile": profile.buying_for}
     return render(request, "restaurants.html", context=context_dict)    
 
 def restaurants_json(request, user_id, keyword):
     the_user = User.objects.get(id=user_id)
     profile = UserProfile.objects.get(user=the_user)
+
     address_request = requests.get(f"https://maps.googleapis.com/maps/api/geocode/json?address={profile.google_search_address}&key={settings.GOOGLE_KEY}")
     address_data = address_request.json()
     print(address_data)

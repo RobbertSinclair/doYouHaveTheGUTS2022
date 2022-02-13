@@ -16,6 +16,7 @@ def index(request):
     return render(request, "index.html")
 
 # Create your views here.
+@login_required
 def restaurants(request, user_id, keyword):
     the_user = User.objects.get(id=user_id)
     #Get the users address

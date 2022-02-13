@@ -10,71 +10,71 @@ Event
     
 <div id="event-wrapper" class="card-body">
     <h1>Event</h1>
-    <!--<div id="event-title" class="event-block">
-        <p>{{ revealed }}</p>
-        <p>{{ event.revealed_time }}</p>
-    </div> -->
-    <div class=row>
-        <div class="col">
-        <div id="event-details" class="event-block">
-            <h3>Details</h3>
-            <p>Time: {{ event.time }}</p>
-            <p>Theme: {{ event.theme }}</p>
-            <p>Budget: {{ event.budget }}</p>
-            <p>Details: {{ event.details }}</p>
-        </div>
-        </div>
-
-        <div class="col">
-            <div id="opt-in" class="event-block">
-                <h5>Are you participating?</h5>
-                {% if options.opt_in %}
-                    <input type="radio" id="in" name="participation" value="Opt In" checked>
-                    <label for="in">Opt In</label>
-                    <input type="radio" id="out" name="participation" value="Opt Out">
-                    <label for="out">Opt Out</label>
-                {% else %}
-                    <input type="radio" id="in" name="participation" value="Opt In">
-                    <label for="in">Opt In</label>
-                    <input type="radio" id="out" name="participation" value="Opt Out" checked>
-                    <label for="out">Opt Out</label>
-                {% endif %}
+    {{% if event }}
+        <div class=row>
+            <div class="col">
+            <div id="event-details" class="event-block">
+                <h3>Details</h3>
+                <p>Time: {{ event.time }}</p>
+                <p>Theme: {{ event.theme }}</p>
+                <p>Budget: {{ event.budget }}</p>
+                <p>Details: {{ event.details }}</p>
+            </div>
             </div>
 
-            <div id="opt-theme" class="event-block">
-                <h5>Would you like food from the theme?</h5>
-                {% if options.theme_opt_in %}
-                    <input type="radio" id="in-theme" name="participation-theme" value="Opt In" checked>
-                    <label for="in-theme">Opt In</label>
-                    <input type="radio" id="out-theme" name="participation-theme" value="Opt Out">
-                    <label for="out-theme">Opt Out</label>
-                {% else %}
-                    <input type="radio" id="in-theme" name="participation-theme" value="Opt In">
-                    <label for="in-theme">Opt In</label>
-                    <input type="radio" id="out-theme" name="participation-theme" value="Opt Out" checked>
-                    <label for="out-theme">Opt Out</label>
-                {% endif %}
+            <div class="col">
+                <div id="opt-in" class="event-block">
+                    <h5>Are you participating?</h5>
+                    {% if options.opt_in %}
+                        <input type="radio" id="in" name="participation" value="Opt In" checked>
+                        <label for="in">Opt In</label>
+                        <input type="radio" id="out" name="participation" value="Opt Out">
+                        <label for="out">Opt Out</label>
+                    {% else %}
+                        <input type="radio" id="in" name="participation" value="Opt In">
+                        <label for="in">Opt In</label>
+                        <input type="radio" id="out" name="participation" value="Opt Out" checked>
+                        <label for="out">Opt Out</label>
+                    {% endif %}
+                </div>
+
+                <div id="opt-theme" class="event-block">
+                    <h5>Would you like food from the theme?</h5>
+                    {% if options.theme_opt_in %}
+                        <input type="radio" id="in-theme" name="participation-theme" value="Opt In" checked>
+                        <label for="in-theme">Opt In</label>
+                        <input type="radio" id="out-theme" name="participation-theme" value="Opt Out">
+                        <label for="out-theme">Opt Out</label>
+                    {% else %}
+                        <input type="radio" id="in-theme" name="participation-theme" value="Opt In">
+                        <label for="in-theme">Opt In</label>
+                        <input type="radio" id="out-theme" name="participation-theme" value="Opt Out" checked>
+                        <label for="out-theme">Opt Out</label>
+                    {% endif %}
+                </div>
             </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col">
-        <div id="food-purchase" class="event-block">
-            Have you bought your food
-            Link to nearby restaurants
-        </div>
-        </div>
-        
-        <div class="col">
-        <div id="buying-for" class="event-block">
-            <h4>You are buying for</h4>
-            {% if revealed == True %}
-                <p>You will find out at: {{ event.revealed_time }} on {{ event.revealed_date }}</p>
-            {% else %}
-                <p>SUUUUUUUU</p>
-            {% endif %}
-        </div>
-        </div>
+        <div class="row">
+            <div class="col">
+            <div id="food-purchase" class="event-block">
+                Have you bought your food
+                Link to nearby restaurants
+            </div>
+            </div>
+            
+            <div class="col">
+            <div id="buying-for" class="event-block">
+                <h4>You are buying for</h4>
+                {% if revealed == True %}
+                    <p>You will find out at: {{ event.revealed_time }} on {{ event.revealed_date }}</p>
+                {% else %}
+                    <p>SUUUUUUUU</p>
+                {% endif %}
+            </div>
+            </div>
+    {{% else %}}
+        <p>There are no events available.</p>
+    {{% endif %}}
 </div>
 </div>
 

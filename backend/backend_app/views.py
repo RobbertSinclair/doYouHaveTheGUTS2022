@@ -128,7 +128,7 @@ def change_opt_in(request):
 def create_event(request):
     if request.method == 'POST':
         event_form = EventForm(request.POST)
-        user = UserProfile.objects.get(user_id=request.user)
+        user = UserProfile.objects.get(user=request.user)
 
         if event_form.is_valid():
             event = event_form.save(commit=False)

@@ -102,15 +102,33 @@ def event(request):
 
     return render(request, "event.html", context=context_dict)
 
+def opt_in_or_out(boolean_opt):
+    if boolean_opt == "Opt Out":
+        return False
+    else:
+        return True
+
 def change_opt_in(request):
-    print(nice)
-    print(request.POST)
+    try:
+        user_event = EventUserBridge.objects.get(user=request.user)
+    except EventUserBridge.DoesNotExist:
+        user_event = None
+    if user_event is None:
+        return redirect('/event/')
+    
+    if request.method == 'POST':
+        opt_answer = request.POST["participation"]
+        user_event.opt_in = opt_in_or_out(opt_answer)
+        user_event.save()
+
+    return redirect(reverse('backend_app:event'))
+
 
 @login_required
 def create_event(request):
     if request.method == 'POST':
         event_form = EventForm(request.POST)
-        user = UserProfile.objects.get(user_id=request.user)
+        user = UserProfile.objects.get(user=request.user)
 
         if event_form.is_valid():
             event = event_form.save(commit=False)
@@ -127,11 +145,16 @@ def create_event(request):
 def team(request):
     context_dict = {}
 
-    event = Event.objects.get(name="Valentines")
-    members = UserProfile.objects.filter(event=event)
+    name="Valentines"
+    try:
+        event = Event.objects.get(name="Valentines")
+        members = UserProfile.objects.filter(event=event)
+        context_dict["event"] = event
+        context_dict["members"] = members
+    except Event.DoesNotExist:
+        context_dict['event'] = None
+        context_dict["members"] = None
 
-    context_dict["event"] = event
-    context_dict["members"] = members
     return render(request, "team.html", context=context_dict)
 
 

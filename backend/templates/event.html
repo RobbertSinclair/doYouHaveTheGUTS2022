@@ -28,6 +28,8 @@ Event
         <div class="col">
             <div id="opt-in" class="event-block">
                 <h5>Are you participating?</h5>
+                <form method="post" action="{% url 'backend_app:change_opt_in' %}" >
+                {% csrf_token %}
                 {% if options.opt_in %}
                     <input type="radio" id="in" name="participation" value="Opt In" checked>
                     <label for="in">Opt In</label>
@@ -39,6 +41,12 @@ Event
                     <input type="radio" id="out" name="participation" value="Opt Out" checked>
                     <label for="out">Opt Out</label>
                 {% endif %}
+
+                <button type="submit">
+                    <p>Confirm choice</p>
+                </button>
+                </form>
+                <br>
             </div>
 
             <div id="opt-theme" class="event-block">

@@ -16,13 +16,21 @@ def index(request):
     return render(request, "index.html")
 
 # Create your views here.
-def restaurants(request):
-    data = requests.get(f"https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=55.871914%2C-4.297744&radius=2500&type=restaurant&type=takeaway_menu&keyword=pizza&key={settings.GOOGLE_KEY}")
-    print(data.json())
-    context_dict = {"results": data.json()["results"][:3], "photos": []}
-    for result in context_dict["results"]:
-        context_dict["photos"].append(f"https://maps.googleapis.com/maps/api/place/photo?maxWidth=400&photo_reference={result['photos'][0]['photo_reference']}&key={settings.GOOGLE_KEY}")
-    print(context_dict["photos"])
+@login_required
+def restaurants(request, user_id, keyword):
+    the_user = User.objects.get(id=user_id)
+    #Get the users address
+    profile = UserProfile.objects.get(user=the_user)
+    address_request = requests.get(f"https://maps.googleapis.com/maps/api/geocode/json?address={profile.google_search_address}&key={settings.GOOGLE_KEY}")
+    address_data = address_request.json()
+    location = [address_data["results"][0]["geometry"]["location"]["lat"], address_data["results"][0]["geometry"]["location"]["lng"]]
+    print(location)
+    data = requests.get(f"https://maps.googleapis.com/maps/api/place/nearbysearch/json?location={location[0]}%2C{location[1]}&radius=4000&type=restaurant&type=takeaway_menu$opennow=true&keyword={keyword}&key={settings.GOOGLE_KEY}")
+    context_dict = {"results": []}
+    for result in data.json()["results"][:3]:
+        new_dict = {"result": result}
+        new_dict["photo"] = f"https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&maxheight=400&photo_reference={result['photos'][0]['photo_reference']}&key={settings.GOOGLE_KEY}"
+        context_dict["results"].append(new_dict)
     return render(request, "restaurants.html", context=context_dict)
 
 
@@ -199,10 +207,11 @@ def user_logout(request):
     # Returns user to homepage
     return redirect(reverse('backend_app:index'))
 
-
+@login_required
 def my_account(request):
     context_dict = {}
     u=request.user
     user=UserProfile.objects.get(user=u)
     context_dict["u"] = user
+    
     return render(request, 'my_account.html', context=context_dict)

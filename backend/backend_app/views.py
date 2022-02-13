@@ -52,6 +52,7 @@ def generate_event_test():
     event.details = "Lunch dates, cheeky."
     event.save()
 
+@login_required
 def event(request):
     #generate_event_test()
     context_dict = {}
@@ -75,33 +76,57 @@ def event(request):
 
     cur_time = datetime.datetime.now()
 
-    if (cur_time.year < cur_event.revealed_date.year):
-        context_dict["revealed"] = False
-    else:
-        if (cur_time.month < cur_event.revealed_date.month):
+    if context_dict['event'] != None:
+        if (cur_time.year < cur_event.revealed_date.year):
             context_dict["revealed"] = False
         else:
-            if (cur_time.day < cur_event.revealed_date.day):
+            if (cur_time.month < cur_event.revealed_date.month):
                 context_dict["revealed"] = False
             else:
-                if (cur_time.hour < cur_event.revealed_time.hour):
-                    context_dict["revelead"] = False
+                if (cur_time.day < cur_event.revealed_date.day):
+                    context_dict["revealed"] = False
                 else:
-                    if (cur_time.minute < cur_event.revealed_time.minute):
+                    if (cur_time.hour < cur_event.revealed_time.hour):
                         context_dict["revelead"] = False
                     else:
-                        if (cur_time.second < cur_event.revealed_time.second):
+                        if (cur_time.minute < cur_event.revealed_time.minute):
                             context_dict["revelead"] = False
                         else:
-                            context_dict["revealed"] = True
+                            if (cur_time.second < cur_event.revealed_time.second):
+                                context_dict["revelead"] = False
+                            else:
+                                context_dict["revealed"] = True
+    else:
+        context_dict["revealed"] = False
 
     return render(request, "event.html", context=context_dict)
 
+def change_opt_in(request):
+    print(nice)
+    print(request.POST)
+
+@login_required
+def create_event(request):
+    if request.method == 'POST':
+        event_form = EventForm(request.POST)
+        user = UserProfile.objects.get(user_id=request.user)
+
+        if event_form.is_valid():
+            event = event_form.save(commit=False)
+            return redirect(reverse('backend_app:index'))
+
+        else:
+            print(event_form.errors)
+    else:
+        # If not a HTTP POST then render a blank form.
+        event_form = EventForm()
+    
+    return render(request, 'create_event.html', {'event_form': event_form})
 
 def team(request):
     context_dict = {}
 
-    event = Event.objects.get(name="Jimmy's Birthday")
+    event = Event.objects.get(name="Valentines")
     members = UserProfile.objects.filter(event=event)
 
     context_dict["event"] = event
@@ -202,25 +227,5 @@ def my_account(request):
     u=request.user
     user=UserProfile.objects.get(user=u)
     context_dict["u"] = user
-    return render(request, 'my_account.html', context=context_dict)
-
-
-
-@login_required
-def create_event(request):
-    if request.method == 'POST':
-        event_form = EventForm(request.POST)
-        u = request.user
-        user = UserProfile.objects.get(user_id=u.id)
-
-        if event_form.is_valid():
-            event = event_form.save(commit=False)
-            return redirect(reverse('backend_app:index'))
-
-        else:
-            print(event_form.errors)
-    else:
-        # If not a HTTP POST then render a blank form.
-        event_form = EventForm()
     
-    return render(request, 'create_event.html', {'event_form': event_form})
+    return render(request, 'my_account.html', context=context_dict)

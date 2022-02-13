@@ -19,7 +19,6 @@ canvas {
     padding:40px;
     padding-top:0px;
     font-size: 20px;
-    text-align: center;
 }
 
 .event-block{
@@ -28,6 +27,7 @@ canvas {
     text-align: center;
     margin:5px;
 }
+
 
 #food-purchase{
     height:100%;
@@ -112,9 +112,8 @@ canvas {
     color:#AFE1AF;
 }
 
-
 #event-form {
-    font-size: 20px;
+
 }
 
 

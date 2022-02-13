@@ -68,27 +68,34 @@ def event(request):
 
     cur_time = datetime.datetime.now()
 
-    if (cur_time.year < cur_event.revealed_date.year):
-        context_dict["revealed"] = False
-    else:
-        if (cur_time.month < cur_event.revealed_date.month):
+    if context_dict['event'] != None:
+        if (cur_time.year < cur_event.revealed_date.year):
             context_dict["revealed"] = False
         else:
-            if (cur_time.day < cur_event.revealed_date.day):
+            if (cur_time.month < cur_event.revealed_date.month):
                 context_dict["revealed"] = False
             else:
-                if (cur_time.hour < cur_event.revealed_time.hour):
-                    context_dict["revelead"] = False
+                if (cur_time.day < cur_event.revealed_date.day):
+                    context_dict["revealed"] = False
                 else:
-                    if (cur_time.minute < cur_event.revealed_time.minute):
+                    if (cur_time.hour < cur_event.revealed_time.hour):
                         context_dict["revelead"] = False
                     else:
-                        if (cur_time.second < cur_event.revealed_time.second):
+                        if (cur_time.minute < cur_event.revealed_time.minute):
                             context_dict["revelead"] = False
                         else:
-                            context_dict["revealed"] = True
+                            if (cur_time.second < cur_event.revealed_time.second):
+                                context_dict["revelead"] = False
+                            else:
+                                context_dict["revealed"] = True
+    else:
+        context_dict["revealed"] = False
 
     return render(request, "event.html", context=context_dict)
+
+def change_opt_in(request):
+    print(nice)
+    print(request.POST)
 
 
 def team(request):

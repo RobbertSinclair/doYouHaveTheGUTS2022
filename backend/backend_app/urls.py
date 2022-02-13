@@ -6,6 +6,7 @@ app_name = "backend_app"
 urlpatterns = [
     path("", index, name="index"),
     path("event/", event, name="event"),
+    path("change_opt_in", change_opt_in, name="change_opt_in"),
     path("team/", team, name="team"),
     path("create-event/", create_event, name="create-event"),
     path("restaurants/<int:user_id>/<str:keyword>", restaurants, name="restaurants"),

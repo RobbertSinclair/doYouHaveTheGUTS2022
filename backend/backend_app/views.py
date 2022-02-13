@@ -183,7 +183,7 @@ def user_logout(request):
     # Returns user to homepage
     return redirect(reverse('backend_app:index'))
 
-
+@login_required
 def my_account(request):
     context_dict = {}
     u=request.user

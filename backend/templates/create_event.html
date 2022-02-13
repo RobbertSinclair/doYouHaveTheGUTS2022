@@ -7,12 +7,13 @@ Create Event
 {% block body_block %}
  <!-- Heading Row -->
     <!-- Call to Action Well -->
-    <div class="card-body">
+    <div id="form-div" class="card text-white my-5 py-4 align-items-center">
+    <div class="card-body" id="event-form">
         <!--Relies on user model-->
-        <p class="text-black m-0 text-center">
+        <p>
             Create Event
         </p>
-        <div class="form-group col-md-8">
+        <div class="form-group col-md-35">
             <form id="event-form" role="form" method='POST' action="{% url 'backend_app:create-event' %}" enctype="multipart/form-data">
                 {% csrf_token %}
                 {{ event_form.as_p }}
@@ -21,5 +22,6 @@ Create Event
                 </div>
             </form>
         </div>
+    </div>
     </div>
 {% endblock %}

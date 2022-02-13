@@ -47,13 +47,22 @@ class EventForm(forms.ModelForm):
     name = forms.CharField(max_length=MAX_STRING_LENGTH, widget=forms.TextInput(attrs={"class": "form-control"}))
     date = forms.DateField(widget=DateInput(attrs={"class": "form-control"}))
     time = forms.TimeField(widget=TimeInput(attrs={"class": "form-control"}))
-    theme = forms.CharField(max_length=100, widget=forms.TextInput(attrs={"class": "form-control"}))
+    revealed_date = forms.DateField(widget=DateInput(attrs={"class": "form-control"}))
+    revealed_time = forms.TimeField(widget=TimeInput(attrs={"class": "form-control"}))
     budget = forms.DecimalField(max_digits=6, decimal_places=2, widget=forms.NumberInput(attrs={"class": "form-control"}))
     details = forms.CharField(max_length=200, widget=forms.Textarea(attrs={"class": "form-control", "rows": 5, "cols": 20,}))
 
     class Meta:
         model = Event
-        fields = ('name', 'date', 'time', 'theme', 'budget', 'details',)
+        fields = ('name', 'date', 'time', 'revealed_date', 'revealed_time', 'budget', 'details',)
+
+class EventUserBridgeForm(forms.ModelForm):
+    opt_in = forms.BooleanField(initial=False, required=False)
+    theme_opt_in = forms.BooleanField(initial=False, required=False)
+
+    class Meta:
+        model = EventUserBridge
+        fields = ('opt_in', 'theme_opt_in',)
 
 class UserForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput())
@@ -65,9 +74,8 @@ class UserForm(forms.ModelForm):
 class UserProfileForm(forms.ModelForm):
     address = forms.CharField(max_length=200)
     dietary_info = forms.CharField(max_length=500)
-    likes_and_dislikes = forms.CharField(max_length=500)
-    #profile_picture = forms.ImageField(help_text='Insert a User Profile Image here.')
+    profile_picture = forms.ImageField(help_text='Insert a User Profile Image here.')
 
     class Meta:
         model = UserProfile
-        exclude = ('user', 'event')
+        exclude = ('event',)

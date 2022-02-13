@@ -133,6 +133,7 @@ def create_event(request):
 
         if event_form.is_valid():
             event = event_form.save(commit=False)
+            eventuser_bridge = EventUserBridgeForm(event_id=event, user_id=user).save()
             return redirect(reverse('backend_app:index'))
 
         else:

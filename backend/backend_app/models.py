@@ -40,6 +40,8 @@ class Event(models.Model):
     name = models.CharField(max_length=MAX_STRING_LENGTH)
     date = models.DateField()
     time = models.TimeField()
+    revealed_date = models.DateField()
+    revealed_time = models.TimeField()
     budget = models.DecimalField(max_digits=6, decimal_places=2)
     details = models.CharField(max_length=200)
 

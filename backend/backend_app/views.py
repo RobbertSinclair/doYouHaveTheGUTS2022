@@ -5,7 +5,7 @@ from backend_app.forms import *
 from django.contrib.auth import authenticate, login, logout
 from django.urls import reverse
 from django.shortcuts import redirect
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from backend_app.forms import *
 import requests
 from django.conf import settings
@@ -17,9 +17,15 @@ def index(request):
 
 # Create your views here.
 @login_required
-def restaurants(request, user_id, keyword):
-    the_user = User.objects.get(id=user_id)
+def restaurants(request):
+    #the_user = User.objects.get(id=user_id)
     #Get the users address
+    profile = UserProfile.objects.get(user=request.user)
+    context_dict = {"profile": profile}
+    return render(request, "restaurants.html", context=context_dict)    
+
+def restaurants_json(request, user_id, keyword):
+    the_user = User.objects.get(id=user_id)
     profile = UserProfile.objects.get(user=the_user)
     address_request = requests.get(f"https://maps.googleapis.com/maps/api/geocode/json?address={profile.google_search_address}&key={settings.GOOGLE_KEY}")
     address_data = address_request.json()
@@ -31,7 +37,8 @@ def restaurants(request, user_id, keyword):
         new_dict = {"result": result}
         new_dict["photo"] = f"https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&maxheight=400&photo_reference={result['photos'][0]['photo_reference']}&key={settings.GOOGLE_KEY}"
         context_dict["results"].append(new_dict)
-    return render(request, "restaurants.html", context=context_dict)
+    return JsonResponse(context_dict)
+
 
 
 def generate_event_test():
@@ -69,27 +76,34 @@ def event(request):
 
     cur_time = datetime.datetime.now()
 
-    if (cur_time.year < cur_event.revealed_date.year):
-        context_dict["revealed"] = False
-    else:
-        if (cur_time.month < cur_event.revealed_date.month):
+    if context_dict['event'] != None:
+        if (cur_time.year < cur_event.revealed_date.year):
             context_dict["revealed"] = False
         else:
-            if (cur_time.day < cur_event.revealed_date.day):
+            if (cur_time.month < cur_event.revealed_date.month):
                 context_dict["revealed"] = False
             else:
-                if (cur_time.hour < cur_event.revealed_time.hour):
-                    context_dict["revelead"] = False
+                if (cur_time.day < cur_event.revealed_date.day):
+                    context_dict["revealed"] = False
                 else:
-                    if (cur_time.minute < cur_event.revealed_time.minute):
+                    if (cur_time.hour < cur_event.revealed_time.hour):
                         context_dict["revelead"] = False
                     else:
-                        if (cur_time.second < cur_event.revealed_time.second):
+                        if (cur_time.minute < cur_event.revealed_time.minute):
                             context_dict["revelead"] = False
                         else:
-                            context_dict["revealed"] = True
+                            if (cur_time.second < cur_event.revealed_time.second):
+                                context_dict["revelead"] = False
+                            else:
+                                context_dict["revealed"] = True
+    else:
+        context_dict["revealed"] = False
 
     return render(request, "event.html", context=context_dict)
+
+def change_opt_in(request):
+    print(nice)
+    print(request.POST)
 
 @login_required
 def create_event(request):
@@ -108,7 +122,6 @@ def create_event(request):
         event_form = EventForm()
     
     return render(request, 'create_event.html', {'event_form': event_form})
-
 
 def team(request):
     context_dict = {}

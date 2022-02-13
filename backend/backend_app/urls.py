@@ -9,7 +9,8 @@ urlpatterns = [
     path("change_opt_in", change_opt_in, name="change_opt_in"),
     path("team/", team, name="team"),
     path("create-event/", create_event, name="create-event"),
-    path("restaurants/<int:user_id>/<str:keyword>", restaurants, name="restaurants"),
+    path("restaurants/", restaurants, name="restaurants"),
+    path("restaurants/<int:user_id>/<str:keyword>", restaurants_json, name="restaurants_json"),
 
     path('signUp/', sign_up, name="signUp"),
     path('login/', user_login, name="login"),

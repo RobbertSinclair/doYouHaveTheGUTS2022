@@ -9,13 +9,17 @@ Event
 {% endblock %}
 
 {% block body_block %}
-        <div id="restaurants" class="row">
-            {% for result in results %} 
-            <div class="col">
-                <img class="restaurant_thumbnail img-fluid" src="{{result.photo}}" />
-                <h1 class="restaurant_name">{{result.result.name}}</h1>
-            </div>    
-            
+        <div id="data" style="display: none">
+            <span id="user">{{profile.id}}</span>
+            {% for tag in profile.likes_and_dislikes.all %} 
+                <span class="likes">{{tag.name}}</span>
             {% endfor %}
+        </div>
+        <div id="message" class="text-center">
+            <h1>You are selecting a meal for {{profile.user.username}}</h1>
+        </div>
+        <div id="restaurants" class="row">
+            <img id="loading" src="{% static '/img/loading.gif' %}"></img>
+            <script src="{% static '/js/restaurantsApiCall.js' %}"></script>
         </div>
 {% endblock %}

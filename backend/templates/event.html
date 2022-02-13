@@ -40,23 +40,6 @@ Event
                     <label for="out">Opt Out</label>
                 {% endif %}
             </div>
-            </div>
-
-            <div class="col">
-                <div id="opt-in" class="event-block">
-                    <h5>Are you participating?</h5>
-                    {% if options.opt_in %}
-                        <input type="radio" id="in" name="participation" value="Opt In" checked>
-                        <label for="in">Opt In</label>
-                        <input type="radio" id="out" name="participation" value="Opt Out">
-                        <label for="out">Opt Out</label>
-                    {% else %}
-                        <input type="radio" id="in" name="participation" value="Opt In">
-                        <label for="in">Opt In</label>
-                        <input type="radio" id="out" name="participation" value="Opt Out" checked>
-                        <label for="out">Opt Out</label>
-                    {% endif %}
-                </div>
 
             <div id="opt-theme" class="event-block">
                 <h5>Would you like food from the theme?</h5>

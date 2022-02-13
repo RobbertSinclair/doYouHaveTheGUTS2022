@@ -12,8 +12,8 @@ Event
         <div id="restaurants" class="row">
             {% for result in results %} 
             <div class="col">
-                <img src="{{result.photo}}" />
-                <h1>{{result.result.name}}</h1>
+                <img class="restaurant_thumbnail img-fluid" src="{{result.photo}}" />
+                <h1 class="restaurant_name">{{result.result.name}}</h1>
             </div>    
             
             {% endfor %}

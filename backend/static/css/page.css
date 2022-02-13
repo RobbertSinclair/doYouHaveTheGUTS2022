@@ -156,3 +156,20 @@ canvas {
   .sidenav {padding-top: 15px;}
   .sidenav a {font-size: 18px;}
 }
+.restaurant_thumbnail {
+    width: 400px;
+    height: 400px;
+    object-fit: cover;
+
+}
+
+@media screen and (max-width: 768px) {
+    .restaurant_thumbnail {
+        width: 200px;
+        height: 200px;
+        object-fit:cover;
+    }
+}
+
+
+

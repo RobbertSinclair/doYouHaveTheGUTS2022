@@ -24,7 +24,7 @@ def restaurants(request, user_id, keyword):
     address_data = address_request.json()
     location = [address_data["results"][0]["geometry"]["location"]["lat"], address_data["results"][0]["geometry"]["location"]["lng"]]
     print(location)
-    data = requests.get(f"https://maps.googleapis.com/maps/api/place/nearbysearch/json?location={location[0]}%2C{location[1]}&radius=4000&type=restaurant&type=takeaway_menu&keyword={keyword}&key={settings.GOOGLE_KEY}")
+    data = requests.get(f"https://maps.googleapis.com/maps/api/place/nearbysearch/json?location={location[0]}%2C{location[1]}&radius=4000&type=restaurant&type=takeaway_menu$opennow=true&keyword={keyword}&key={settings.GOOGLE_KEY}")
     context_dict = {"results": []}
     for result in data.json()["results"][:3]:
         new_dict = {"result": result}

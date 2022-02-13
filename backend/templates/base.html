@@ -24,8 +24,8 @@
     <div id="mySidenav" class="sidenav">
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
         <a href="{% url 'backend_app:event' %}">Event</a>
-        <a href="#">Services</a>
-        <a href="#">Clients</a>
+        <a href="{% url 'backend_app:team' %}">My Team</a>
+        <a href="{% url 'backend_app:account' %}">My Account</a>
         <a href="#">Contact</a>
       </div>
       

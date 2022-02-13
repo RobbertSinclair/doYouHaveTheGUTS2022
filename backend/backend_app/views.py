@@ -101,9 +101,27 @@ def event(request):
 
     return render(request, "event.html", context=context_dict)
 
+def opt_in_or_out(boolean_opt):
+    if boolean_opt == "Opt Out":
+        return False
+    else:
+        return True
+
 def change_opt_in(request):
-    print(nice)
-    print(request.POST)
+    try:
+        user_event = EventUserBridge.objects.get(user=request.user)
+    except EventUserBridge.DoesNotExist:
+        user_event = None
+    if user_event is None:
+        return redirect('/event/')
+    
+    if request.method == 'POST':
+        opt_answer = request.POST["participation"]
+        user_event.opt_in = opt_in_or_out(opt_answer)
+        user_event.save()
+
+    return redirect(reverse('backend_app:event'))
+
 
 @login_required
 def create_event(request):

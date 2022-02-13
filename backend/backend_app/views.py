@@ -60,13 +60,13 @@ def event(request):
 
     cur_time = datetime.datetime.now()
 
-    if (cur_time.year < cur_event.revealedDate.year):
+    if (cur_time.year < cur_event.revealed_date.year):
         context_dict["revealed"] = False
     else:
-        if (cur_time.month < cur_event.revealedDate.month):
+        if (cur_time.month < cur_event.revealed_date.month):
             context_dict["revealed"] = False
         else:
-            if (cur_time.day < cur_event.revealedDate.day):
+            if (cur_time.day < cur_event.revealed_date.day):
                 context_dict["revealed"] = False
             else:
                 if (cur_time.hour < cur_event.revealed_time.hour):
@@ -81,6 +81,24 @@ def event(request):
                             context_dict["revealed"] = True
 
     return render(request, "event.html", context=context_dict)
+
+@login_required
+def create_event(request):
+    if request.method == 'POST':
+        event_form = EventForm(request.POST)
+        user = UserProfile.objects.get(user_id=request.user)
+
+        if event_form.is_valid():
+            event = event_form.save(commit=False)
+            return redirect(reverse('backend_app:index'))
+
+        else:
+            print(event_form.errors)
+    else:
+        # If not a HTTP POST then render a blank form.
+        event_form = EventForm()
+    
+    return render(request, 'create_event.html', {'event_form': event_form})
 
 
 def team(request):
@@ -188,24 +206,3 @@ def my_account(request):
     user=UserProfile.objects.get(user=u)
     context_dict["u"] = user
     return render(request, 'my_account.html', context=context_dict)
-
-
-
-@login_required
-def create_event(request):
-    if request.method == 'POST':
-        event_form = EventForm(request.POST)
-        u = request.user
-        user = UserProfile.objects.get(user_id=u.id)
-
-        if event_form.is_valid():
-            event = event_form.save(commit=False)
-            return redirect(reverse('backend_app:index'))
-
-        else:
-            print(event_form.errors)
-    else:
-        # If not a HTTP POST then render a blank form.
-        event_form = EventForm()
-    
-    return render(request, 'create_event.html', {'event_form': event_form})

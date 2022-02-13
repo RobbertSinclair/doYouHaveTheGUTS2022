@@ -54,7 +54,7 @@ class UserProfile(models.Model):
     address = models.CharField(max_length=200)
     dietary_info = models.CharField(max_length=500)
     likes_and_dislikes = models.ManyToManyField(DietTag)
-    event = models.ForeignKey(Event, on_delete=models.CASCADE)
+    event = models.ForeignKey(Event, on_delete=models.CASCADE, null=True)
     profile_picture = models.ImageField(upload_to='profile_images', blank=True)
     team = models.CharField(max_length=50, default="NOTEAM")
     google_search_address = models.CharField(max_length=400, blank=True, null=True)

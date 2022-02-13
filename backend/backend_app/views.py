@@ -29,6 +29,7 @@ def restaurants_json(request, user_id, keyword):
     profile = UserProfile.objects.get(user=the_user)
     address_request = requests.get(f"https://maps.googleapis.com/maps/api/geocode/json?address={profile.google_search_address}&key={settings.GOOGLE_KEY}")
     address_data = address_request.json()
+    print(address_data)
     location = [address_data["results"][0]["geometry"]["location"]["lat"], address_data["results"][0]["geometry"]["location"]["lng"]]
     print(location)
     data = requests.get(f"https://maps.googleapis.com/maps/api/place/nearbysearch/json?location={location[0]}%2C{location[1]}&radius=4000&type=restaurant&type=takeaway_menu$opennow=true&keyword={keyword}&key={settings.GOOGLE_KEY}")

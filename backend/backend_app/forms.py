@@ -64,8 +64,9 @@ class UserForm(forms.ModelForm):
 class UserProfileForm(forms.ModelForm):
     address = forms.CharField(max_length=200)
     dietary_info = forms.CharField(max_length=500)
-    profile_picture = forms.ImageField(help_text='Insert a User Profile Image here.')
+    likes_and_dislikes = forms.CharField(max_length=500)
+    #profile_picture = forms.ImageField(help_text='Insert a User Profile Image here.')
 
     class Meta:
         model = UserProfile
-        exclude = ('event',)
+        exclude = ('user', 'event')

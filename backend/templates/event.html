@@ -58,7 +58,7 @@ Event
                     url="{% url 'backend_app:change_opt_in' %}" >
                     <label for="out-theme">Opt Out</label>
                 {% else %}
-                    <p>SUUUUUUUU</p>
+                    <p>There is no theme</p>
                 {% endif %}
             </div>
         </div>
@@ -70,7 +70,7 @@ Event
                 {% if revealed == True %}
                     <p>You will find out at: {{ event.revealed_time }} on {{ event.revealed_date }}</p>
                 {% else %}
-                    <p>SUUUUUUUU</p>
+                    <p>You are buying for: </p>
                 {% endif %}
             </div>
             </div>

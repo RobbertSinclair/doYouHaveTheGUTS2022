@@ -45,6 +45,7 @@ def generate_event_test():
     event.details = "Lunch dates, cheeky."
     event.save()
 
+@login_required
 def event(request):
     #generate_event_test()
     context_dict = {}
